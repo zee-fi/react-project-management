@@ -65,7 +65,7 @@ textarea {
 }
 
 .EditProjectPage,
-.CreateProjectPage,
+.CreateProject,
 .AddTask {
   background: #f9eec3;
   border: 1px solid grey;
@@ -84,14 +84,14 @@ textarea {
 
 .EditProjectPage form,
 .AddTask form,
-.CreateProjectPage form {
+.CreateProject form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .AddTask button,
-.CreateProjectPage button {
+.CreateProject button {
   display: block;
 }
 

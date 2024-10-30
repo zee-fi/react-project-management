@@ -16,7 +16,7 @@ function CreateProject() {
     };
     axios
       .post(
-        `${API_URL}`,
+        `${API_URL}/projects/`,
         newProject
       )
       .then((response) => {
