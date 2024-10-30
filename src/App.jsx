@@ -1,13 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Homepage from './pages/Homepage'
 
 function App() {
 
   return (
     <>
-      <h1>React Project Management</h1>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<Homepage />}></Route>
+        <Route path="/*" element={<h2>Page not found</h2>}></Route>
+      </Routes>
     </>
   )
 }
