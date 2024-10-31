@@ -4,6 +4,7 @@ import { API_URL } from "../config/api";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 
 function ProjectDetailsPage () {
@@ -11,6 +12,9 @@ function ProjectDetailsPage () {
     const [project, setProject] = useState(null);
     
     const projectId = useParams();
+
+    const navigate = useNavigate();
+
 
     const getProject = () => {
         axios.get(`${API_URL}/projects/${projectId}?_embed=tasks`)
@@ -22,8 +26,16 @@ function ProjectDetailsPage () {
             })
     }
 
+    const deleteProject = () => {
+        axios.delete(`${API_URL}/projects/${projectId}`)
+            .then( response => {
+                navigate("/projects");
+            })
+            .catch((error) => console.log("Error deleting project...", error));
+    }
+
     useEffect(() => {
-        getProject()
+        getProject();
     }, []);
 
     if (project === null) {
@@ -40,6 +52,9 @@ function ProjectDetailsPage () {
                 </>
             )}
 
+            <AddTask callbackToRefresh={getProject} projectId={projectId} />
+
+            <div className="card-list">
             {project &&
                 project.tasks.map((task) => {
                     return (
@@ -49,6 +64,7 @@ function ProjectDetailsPage () {
                             <p>{task.description}</p>
                         </li>)
                 })}
+             </div>
 
             <Link to="/projects">
                 <button>Back to projects</button>
@@ -57,6 +73,8 @@ function ProjectDetailsPage () {
             <Link to={`/projects/edit/${projectId}`}>
                 <button>Edit Project</button>
             </Link>
+
+            <button onClick={deleteProject}>Delete</button>
 
         </div>
     )
